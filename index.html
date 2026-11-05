@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orion's blog</title>
+<meta name="description" content="Notes from a self-hoster with too many tiny servers.">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="index.html"><img src="logo.png" alt="Orion Productions and Stuff logo"><b>Orion's blog</b></a>
+  <p class="tag">Notes from a self-hoster with too many tiny servers.</p>
+  <nav><a href="index.html">Posts</a><a href="#toolkit">Toolkit</a><a href="#about">About</a></nav>
+  <img class="cover" src="cover.jpg" alt="A long dark server room lit by blue and green rack lights, a technician walking down the aisle">
+</header>
+<main>
+<div id="posts">
+  <noscript>
+  <article class="post"><h2><a href="porridge.html">Healthy Porridge with Ceylon Cinnamon</a></h2></article>
+  <article class="post"><h2><a href="cheap-vps.html">A VPN exit node for about 30 cents a month</a></h2></article>
+  </noscript>
+</div>
+
+<article class="post">
+  <p class="meta">A tip</p>
+  <h2>Cheap hourly VPS</h2>
+  <p>I run a tiny VPN exit node on TierHive's hourly hosting. Details in <a href="cheap-vps.html">this post</a>.</p>
+  <div class="ref">
+    <a href="https://tierhive.com/r/FC8C59F80782">Checkout TierHive for your Hourly VPS</a>
+    <small>Referral link. TierHive may award me hosting credit for keeping this link on this page. This is not the official TierHive site.</small>
+  </div>
+</article>
+
+<article class="post" id="toolkit">
+  <p class="meta">Toolkit</p>
+  <h2>My self-hosting toolkit</h2>
+  <ul class="stack"><li>Docker</li><li>Tailscale</li><li>WireGuard</li><li>AdGuard Home</li><li>Uptime Kuma</li></ul>
+</article>
+
+<article class="post" id="about">
+  <h2>About</h2>
+  <p>I am Orion. I tinker with servers and home networks and write down what worked. More posts when I have something worth saying.</p>
+</article>
+</main>
+<footer>&copy; 2026 Orion's blog &middot; Plain HTML and CSS, hosted on GitHub Pages.<div id="visits"></div></footer>
+</div>
+<script src="posts.js"></script>
+<script>
+(function(){
+  if(typeof POSTS==='undefined')return;
+  var list=POSTS.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0});
+  var box=document.getElementById('posts');box.innerHTML='';
+  list.forEach(function(p){
+    var a=document.createElement('article');a.className='post';
+    var d=new Date(p.date+'T00:00:00');
+    var ds=isNaN(d)?p.date:d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    var m=document.createElement('p');m.className='meta';m.textContent=p.category+' \u00b7 '+ds;
+    var h=document.createElement('h2');var l=document.createElement('a');l.href=p.file;l.textContent=p.title;h.appendChild(l);
+    var s=document.createElement('p');s.textContent=p.summary||'';
+    var more=document.createElement('a');more.className='more';more.href=p.file;more.textContent='Read more \u2192';
+    a.appendChild(m);a.appendChild(h);a.appendChild(s);a.appendChild(more);box.appendChild(a);
+  });
+})();
+</script>
+<script src="counter.js"></script>
+</body>
+</html>
