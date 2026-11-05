@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cloudflare Tunnels - Orion's blog</title>
+<meta name="description" content="Cloudflare Tunnel - Unlocking Your VPS Safely: How to Share Services Publicly Without Opening Ports">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="index.html"><img src="logo.png" alt="Orion Productions and Stuff logo"><b>Orion's blog</b></a>
+  <p class="tag"><a class="back" href="index.html">&larr; All posts</a></p>
+</header>
+<main>
+<article class="post">
+  <p class="meta">Self-hosting &middot; 6 November 2026</p>
+  <h2>Cloudflare Tunnels</h2>
+  <p>Running a Virtual Private Server (VPS) often means locking down your firewall to keep unwanted traffic out. However, what happens when you build a web app, a portfolio, or a personal dashboard that you want the public to see?</p>
+  <p>Traditionally, that meant opening inbound firewall ports and managing tedious SSL certificates. Fortunately, Cloudflare offers a free tool called Cloudflare Tunnel that completely changes the game.</p>
+  <p>Instead of punching holes in your server's security perimeter, Cloudflare Tunnel lets your VPS securely initiate an outbound connection to Cloudflare's global edge network. When a visitor wants to access your web service, Cloudflare safely routes their request through this encrypted tunnel. This means your VPS firewall can remain tightly shut to the outside internet.</p>
+  <p>Your actual server IP address stays entirely hidden, protecting you from direct DDoS attacks. Best of all, you get free automatic HTTPS encryption and custom domain routing without spending a dime.</p>
+  <p>Setting it up takes just a few minutes using their lightweight cloudflared daemon. It is arguably the easiest, most secure way to share your private server's creations with the world.</p>
+  <figure class="ph"><img src="pic-jp0t8.jpg" alt="" loading="lazy"></figure>
+</article>
+</main>
+<footer>&copy; 2026 Orion's blog &middot; Plain HTML and CSS, hosted on GitHub Pages.</footer>
+</div>
+<script src="counter.js"></script>
+</body>
+</html>
