@@ -54,3 +54,12 @@ figure.ph figcaption{color:var(--mute);font-size:14px;margin-top:6px}
 .flist{margin:8px 0;padding:0;list-style:none}
 .flist li{display:flex;gap:10px;align-items:center;margin:6px 0}
 .flist button{font:inherit;font-size:13px;border:1px solid var(--accent2);background:none;color:var(--accent2);border-radius:8px;padding:3px 10px;cursor:pointer}
+/* V5: search and tags */
+.findbar{margin:4px 0 2px}
+.findbar input{width:100%;font:inherit;color:var(--ink);background:#10142a;border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.findbar input:focus{outline:none;border-color:var(--accent2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{font:inherit;font-size:13px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--mute);cursor:pointer}
+.chip.on{border-color:var(--accent2);color:var(--accent2)}
+.chip:hover{border-color:var(--accent2);color:var(--ink)}
+.tagchips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}

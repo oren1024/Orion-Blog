@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+<title>Orion's blog</title>
+<link>https://blog.osnet.ovh/</link>
+<description>Notes from a self-hoster with too many tiny servers.</description>
+<language>en</language>
+<lastBuildDate>Fri, 06 Nov 2026 00:00:00 +0200</lastBuildDate>
+<item><title>Cloudflare Tunnels</title><link>https://blog.osnet.ovh/cloudflare-tunnels.html</link><guid>https://blog.osnet.ovh/cloudflare-tunnels.html</guid><pubDate>Fri, 06 Nov 2026 00:00:00 +0200</pubDate><category>Self-hosting</category><description>Cloudflare Tunnel - Unlocking Your VPS Safely: How to Share Services Publicly Without Opening Ports</description></item>
+<item><title>Healthy Porridge with Ceylon Cinnamon</title><link>https://blog.osnet.ovh/porridge.html</link><guid>https://blog.osnet.ovh/porridge.html</guid><pubDate>Thu, 05 Nov 2026 00:00:00 +0200</pubDate><category>Food</category><description>Not an IT post: my breakfast maintenance window, with Ceylon cinnamon and fruit.</description></item>
+<item><title>A VPN exit node for about 30 cents a month</title><link>https://blog.osnet.ovh/cheap-vps.html</link><guid>https://blog.osnet.ovh/cheap-vps.html</guid><pubDate>Thu, 05 Nov 2026 00:00:00 +0200</pubDate><category>Self-hosting</category><description>A tiny hourly VPS used as a Tailscale exit node, and what it costs.</description></item>
+</channel>
+</rss>

@@ -6,6 +6,7 @@
 <title>Orion's blog</title>
 <meta name="description" content="Notes from a self-hoster with too many tiny servers.">
 <link rel="icon" href="favicon.png">
+<link rel="alternate" type="application/rss+xml" title="Orion's blog RSS" href="rss.xml">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,16 +14,22 @@
 <header>
   <a class="logo" href="index.html"><img src="logo.png" alt="Orion Productions and Stuff logo"><b>Orion's blog</b></a>
   <p class="tag">Notes from a self-hoster with too many tiny servers.</p>
-  <nav><a href="index.html">Posts</a><a href="#toolkit">Toolkit</a><a href="#about">About</a></nav>
+  <nav><a href="index.html">Posts</a><a href="#toolkit">Toolkit</a><a href="#about">About</a><a href="rss.xml">RSS</a></nav>
   <img class="cover" src="cover.jpg" alt="A long dark server room lit by blue and green rack lights, a technician walking down the aisle">
 </header>
 <main>
+<div class="findbar">
+  <input id="q" type="search" placeholder="Search posts..." aria-label="Search posts">
+  <div id="cats" class="chips"></div>
+</div>
 <div id="posts">
   <noscript>
+  <article class="post"><h2><a href="cloudflare-tunnels.html">Cloudflare Tunnels</a></h2></article>
   <article class="post"><h2><a href="porridge.html">Healthy Porridge with Ceylon Cinnamon</a></h2></article>
   <article class="post"><h2><a href="cheap-vps.html">A VPN exit node for about 30 cents a month</a></h2></article>
   </noscript>
 </div>
+<p id="nomatch" class="meta" style="display:none">No posts match that search.</p>
 
 <article class="post">
   <p class="meta">A tip</p>
@@ -45,24 +52,84 @@
   <p>I am Orion. I tinker with servers and home networks and write down what worked. More posts when I have something worth saying.</p>
 </article>
 </main>
-<footer>&copy; 2026 Orion's blog &middot; Plain HTML and CSS, hosted on GitHub Pages.<div id="visits"></div></footer>
+<footer>&copy; 2026 Orion's blog &middot; Plain HTML and CSS, hosted on GitHub Pages. &middot; <a href="rss.xml" style="color:inherit">RSS feed</a><div id="visits"></div></footer>
 </div>
 <script src="posts.js"></script>
 <script>
 (function(){
   if(typeof POSTS==='undefined')return;
   var list=POSTS.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0});
-  var box=document.getElementById('posts');box.innerHTML='';
-  list.forEach(function(p){
-    var a=document.createElement('article');a.className='post';
+  var box=document.getElementById('posts');
+  var nomatch=document.getElementById('nomatch');
+  var q=document.getElementById('q');
+  var catsBox=document.getElementById('cats');
+  var activeCat='';
+  var activeTag='';
+
+  function fmtDate(p){
     var d=new Date(p.date+'T00:00:00');
-    var ds=isNaN(d)?p.date:d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
-    var m=document.createElement('p');m.className='meta';m.textContent=p.category+' \u00b7 '+ds;
-    var h=document.createElement('h2');var l=document.createElement('a');l.href=p.file;l.textContent=p.title;h.appendChild(l);
-    var s=document.createElement('p');s.textContent=p.summary||'';
-    var more=document.createElement('a');more.className='more';more.href=p.file;more.textContent='Read more \u2192';
-    a.appendChild(m);a.appendChild(h);a.appendChild(s);a.appendChild(more);box.appendChild(a);
-  });
+    return isNaN(d)?p.date:d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  }
+  function hay(p){
+    return [p.title,p.summary,p.category,(p.tags||[]).join(' ')].join(' ').toLowerCase();
+  }
+  function render(){
+    var needle=(q.value||'').trim().toLowerCase();
+    var shown=0;
+    box.innerHTML='';
+    list.forEach(function(p){
+      if(activeCat&&p.category!==activeCat)return;
+      if(activeTag&&(p.tags||[]).indexOf(activeTag)===-1)return;
+      if(needle&&hay(p).indexOf(needle)===-1)return;
+      shown++;
+      var a=document.createElement('article');a.className='post';
+      var m=document.createElement('p');m.className='meta';m.textContent=p.category+' \u00b7 '+fmtDate(p);
+      var h=document.createElement('h2');var l=document.createElement('a');l.href=p.file;l.textContent=p.title;h.appendChild(l);
+      var s=document.createElement('p');s.textContent=p.summary||'';
+      a.appendChild(m);a.appendChild(h);a.appendChild(s);
+      if(p.tags&&p.tags.length){
+        var t=document.createElement('p');t.className='tagchips';
+        p.tags.forEach(function(tag){
+          var b=document.createElement('button');b.type='button';b.className='chip'+(activeTag===tag?' on':'');b.textContent='#'+tag;
+          b.onclick=function(){activeTag=(activeTag===tag?'':tag);render();};
+          t.appendChild(b);
+        });
+        a.appendChild(t);
+      }
+      var more=document.createElement('a');more.className='more';more.href=p.file;more.textContent='Read more \u2192';
+      a.appendChild(more);box.appendChild(a);
+    });
+    nomatch.style.display=shown?'none':'block';
+    if(activeTag){
+      var note=document.createElement('p');note.className='meta';
+      note.textContent='Showing posts tagged #'+activeTag+' ';
+      var x=document.createElement('a');x.href='#';x.textContent='(clear)';
+      x.onclick=function(e){e.preventDefault();activeTag='';render();};
+      note.appendChild(x);
+      box.insertBefore(note,box.firstChild);
+    }
+  }
+  var cats=[];
+  list.forEach(function(p){if(p.category&&cats.indexOf(p.category)===-1)cats.push(p.category);});
+  if(cats.length){
+    var all=document.createElement('button');all.type='button';all.className='chip on';all.textContent='All';
+    all.onclick=function(){activeCat='';render();syncChips();};
+    catsBox.appendChild(all);
+    cats.forEach(function(c){
+      var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=c;
+      b.onclick=function(){activeCat=(activeCat===c?'':c);render();syncChips();};
+      catsBox.appendChild(b);
+    });
+  }
+  function syncChips(){
+    var btns=catsBox.querySelectorAll('.chip');
+    btns.forEach(function(b,i){
+      var c=i===0?'':cats[i-1];
+      b.classList.toggle('on',activeCat===c);
+    });
+  }
+  q.addEventListener('input',render);
+  render();
 })();
 </script>
 <script src="counter.js"></script>
