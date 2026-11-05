@@ -5,30 +5,34 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Orion's blog</title>
 <meta name="description" content="Notes from a self-hoster with too many tiny servers.">
+<link rel="icon" href="favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
 <header>
-  <a class="logo" href="/"><span class="mark">O</span><b>Orion's blog</b></a>
+  <a class="logo" href="index.html"><img src="logo.png" alt="Orion Productions and Stuff logo"><b>Orion's blog</b></a>
   <p class="tag">Notes from a self-hoster with too many tiny servers.</p>
-  <nav><a href="#vps">Cheap VPS</a><a href="#stack">Stack</a><a href="#about">About</a></nav>
+  <nav><a href="index.html">Posts</a><a href="#toolkit">Toolkit</a><a href="#about">About</a></nav>
 </header>
 
 <main>
-<article class="post" id="vps">
-  <p class="meta">Self-hosting &middot; November 2026</p>
-  <h2>A VPN exit node for about 30 cents a month</h2>
-  <p>I like small, cheap, boring servers. Lately I have been trying hourly-billed VPS hosting, where server resources are billed by the hour.</p>
-  <p>My current one is a tiny Debian 13 box in Amsterdam that I use as a Tailscale exit node. It has 384 MB of RAM and costs me roughly 0.30 tokens a month on TierHive. I topped up 3 USD for 3 tokens, so one top-up goes a very long way.</p>
-  <p>It is a NAT-based host, so check the port situation before you plan anything that needs public UDP or DNS.</p>
+<!-- POSTS: this list builds itself from posts.json. Add a line there and the post appears here. -->
+<div id="posts">
+  <noscript><article class="post"><h2><a href="cheap-vps.html">A VPN exit node for about 30 cents a month</a></h2></article></noscript>
+</div>
+
+<article class="post">
+  <p class="meta">A tip</p>
+  <h2>Cheap hourly VPS</h2>
+  <p>I run a tiny VPN exit node on TierHive's hourly hosting. Details in <a href="cheap-vps.html">this post</a>.</p>
   <div class="ref">
     <a href="https://tierhive.com/r/FC8C59F80782">Checkout TierHive for your Hourly VPS</a>
     <small>Referral link. TierHive may award me hosting credit for keeping this link on this page. This is not the official TierHive site.</small>
   </div>
 </article>
 
-<article class="post" id="stack">
+<article class="post" id="toolkit">
   <p class="meta">Toolkit</p>
   <h2>My self-hosting toolkit</h2>
   <ul class="stack"><li>Docker</li><li>Tailscale</li><li>WireGuard</li><li>AdGuard Home</li><li>Uptime Kuma</li></ul>
@@ -42,5 +46,21 @@
 
 <footer>&copy; 2026 Orion's blog &middot; Plain HTML and CSS, hosted on GitHub Pages.</footer>
 </div>
+<script>
+fetch('posts.json').then(function(r){return r.json()}).then(function(list){
+  list.sort(function(a,b){return b.date<a.date?-1:b.date>a.date?1:0});
+  var box=document.getElementById('posts');box.innerHTML='';
+  list.forEach(function(p){
+    var a=document.createElement('article');a.className='post';
+    var d=new Date(p.date+'T00:00:00');
+    var ds=isNaN(d)?p.date:d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    var m=document.createElement('p');m.className='meta';m.textContent=p.category+' \u00b7 '+ds;
+    var h=document.createElement('h2');var l=document.createElement('a');l.href=p.file;l.textContent=p.title;h.appendChild(l);
+    var s=document.createElement('p');s.textContent=p.summary||'';
+    var more=document.createElement('a');more.className='more';more.href=p.file;more.textContent='Read more \u2192';
+    a.appendChild(m);a.appendChild(h);a.appendChild(s);a.appendChild(more);box.appendChild(a);
+  });
+}).catch(function(){});
+</script>
 </body>
 </html>
