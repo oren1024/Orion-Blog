@@ -1,0 +1,97 @@
+/* V6 Beta: 90s mode. Does nothing until retro.js adds class "retro" to <html>. */
+html.retro body{
+  font:17px/1.5 "Comic Sans MS","Chalkboard SE","Comic Neue",cursive;
+  color:#00ff00;
+  background:#000040 url(retro-stars.gif) repeat;
+}
+html.retro .wrap{
+  max-width:780px;
+  background:rgba(0,0,120,.93);
+  border:4px ridge #c0c0c0;
+  padding:10px 22px 22px;
+}
+html.retro header{text-align:center}
+html.retro .logo{color:#ffff00}
+html.retro .logo b{
+  font-size:32px;
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,fuchsia,red);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:retrohue 3s linear infinite;
+}
+@keyframes retrohue{to{filter:hue-rotate(360deg)}}
+html.retro .logo img{border:3px ridge gold;border-radius:0}
+html.retro .tag{color:#00ffff;font-style:italic;animation:retroblink 1.2s steps(1) infinite}
+@keyframes retroblink{50%{opacity:0}}
+html.retro nav{justify-content:center;gap:10px;flex-wrap:wrap}
+html.retro nav a{
+  color:#000;background:#c0c0c0;border:3px outset #fff;padding:2px 14px;
+}
+html.retro nav a:active{border-style:inset}
+html.retro .cover{border:5px ridge gold;border-radius:0}
+html.retro .post{
+  background:#000080;border:4px groove #c0c0c0;border-radius:0;padding:20px;
+}
+html.retro .post h2, html.retro .post h2 a{
+  background:linear-gradient(90deg,#ff0,#f0f,#0ff,#ff0);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:retrohue 4s linear infinite;
+}
+html.retro .post p, html.retro .post ul{color:#00ff00}
+html.retro .meta{color:#ff99ff}
+html.retro a{color:#00ffff;text-decoration:underline}
+html.retro a:visited{color:#ff80ff}
+html.retro .post img, html.retro figure.ph img{border:5px ridge #ffd700;border-radius:0}
+html.retro figure.ph figcaption{color:#ffff99}
+html.retro .more{color:#ffff00;font-weight:700}
+html.retro .ref{background:#400000;border:4px dashed #ffff00;border-radius:0}
+html.retro .ref a{color:#ffff00;animation:retroblink 1.5s steps(1) infinite}
+html.retro .ref small{color:#ffaaaa}
+html.retro .stack li{border:2px outset #c0c0c0;background:#c0c0c0;color:#000;border-radius:0}
+html.retro footer{color:#99ff99;text-align:center}
+html.retro footer a{color:#00ffff}
+html.retro .findbar input{
+  font-family:"Comic Sans MS",cursive;background:#fff;color:#000;border:3px inset #c0c0c0;border-radius:0;
+}
+html.retro .chip{
+  font-family:"Comic Sans MS",cursive;background:#c0c0c0;color:#000;border:3px outset #fff;border-radius:0;
+}
+html.retro .chip.on{background:#ffff00;border-style:inset}
+html.retro .chip:active{border-style:inset}
+/* extras injected by retro.js */
+#retro-marquee{
+  display:block;margin:14px 0 4px;padding:6px 0;background:#000;color:#ffff00;
+  border:3px ridge #c0c0c0;font-weight:700;font-size:18px;
+}
+#retro-rainbow{height:10px;margin:6px 0 14px;border:2px inset #c0c0c0;
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,fuchsia,red);
+  animation:retrohue 2s linear infinite;
+}
+#retro-construct{text-align:center;margin:18px 0}
+#retro-construct img{image-rendering:pixelated;border:3px ridge #c0c0c0;max-width:100%;height:auto}
+#retro-visitor{
+  display:inline-block;margin:10px 0;padding:4px 12px;background:#000;color:#00ff00;
+  font:700 18px/1.4 "Courier New",monospace;border:3px inset #c0c0c0;letter-spacing:3px;
+}
+#retro-guestbook button{
+  font-family:"Comic Sans MS",cursive;font-size:16px;background:#c0c0c0;color:#000;
+  border:3px outset #fff;padding:4px 16px;cursor:pointer;margin-top:8px;
+}
+#retro-guestbook button:active{border-style:inset}
+#retro-badge{
+  position:fixed;left:8px;bottom:8px;z-index:9998;background:#000;color:#0f0;
+  font:12px "Courier New",monospace;border:2px inset #c0c0c0;padding:4px 8px;
+}
+#retro-toggle{
+  position:fixed;right:14px;bottom:14px;z-index:9999;cursor:pointer;
+  font:700 15px "Comic Sans MS","Chalkboard SE",cursive;
+  padding:10px 16px;border-radius:999px;border:2px solid #2a2f4d;background:#181c30;color:#6ee7d8;
+  box-shadow:0 4px 14px rgba(0,0,0,.4);
+}
+html.retro #retro-toggle{
+  border-radius:0;border:3px outset #fff;background:#c0c0c0;color:#000;box-shadow:none;
+}
+html.retro #retro-toggle:active{border-style:inset}
+@media(max-width:600px){
+  #retro-badge{bottom:66px;font-size:11px;max-width:62vw}
+  #retro-toggle{right:10px;bottom:10px;padding:8px 12px;font-size:14px}
+}
