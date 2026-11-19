@@ -1,5 +1,6 @@
 /* The list of posts shown on the home page. NEW-POST.html makes a new copy of this file for you. */
 var POSTS = [
+  {"file":"rustdesk-your-remote-desktop-your-infrastructure-y.html","title":"RustDesk: Your Remote Desktop, Your Infrastructure, Your Rules","date":"2026-11-19","category":"Self-hosting","tags":["vps","rustdesk","linux","firewall"],"summary":"Why should you selfhost a RustDesk server"},
   {"file":"pizza-is-life-a-little-detour-to-homeslice-neal-s-.html","title":"Pizza Is Life: A Little Detour to Homeslice, Neal's Yard, London 🍕","date":"2026-11-07","category":"food","tags":["food","pizza","london"],"summary":"Homeslice – Neal's Yard"},
   {"file":"cloudflare-tunnels.html","title":"Cloudflare Tunnels","date":"2026-11-06","category":"Self-hosting","tags":["cloudflare","vps","security","tunnel"],"summary":"Cloudflare Tunnel - Unlocking Your VPS Safely: How to Share Services Publicly Without Opening Ports"},
   {"file":"porridge.html","title":"Healthy Porridge with Ceylon Cinnamon","date":"2026-11-05","category":"Food","tags":["breakfast","recipe","cinnamon"],"summary":"Not an IT post: my breakfast maintenance window, with Ceylon cinnamon and fruit."},
